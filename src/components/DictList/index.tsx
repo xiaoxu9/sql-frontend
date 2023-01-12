@@ -217,6 +217,7 @@ const DictList: React.FC<Props> = (props) => {
             <ReportModal
                 visible={reportModalVisible}
                 reportedId={reportedId}
+                type='0'
                 onClose={() => {
                     setReportModalVisible(false);
                 }}

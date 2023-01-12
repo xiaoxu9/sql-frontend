@@ -22,6 +22,7 @@ export async function listReportByPage(params: ReportType.ReportQueryRequest) {
  * @param params
  */
 export async function addReport(params: ReportType.ReportAddRequest) {
+  console.log(params)
   return request<BaseResponse<number>>('/report/add', {
     method: 'POST',
     headers: {

@@ -233,6 +233,7 @@ const FieldInfoList: React.FC<Props> = (props) => {
             <ReportModal
                 visible={reportModalVisible}
                 reportedId={reportedId}
+                type='2'
                 onClose={() => {
                     setReportModalVisible(false);
                 }}

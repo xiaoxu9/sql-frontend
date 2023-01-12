@@ -4,7 +4,7 @@ import { Navigate, Outlet, useAccess } from 'umi';
 /**
  * 权限校验拦截器
  *
- * @author https://github.com/liyupi
+ * @author https://github.com/xiaoxu9
  */
 export default () => {
     const { canUser } = useAccess();

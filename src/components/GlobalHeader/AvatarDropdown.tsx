@@ -6,9 +6,7 @@ import React from 'react';
 import { userLogout } from "@/services/userService";
 import { history } from "umi";
 import { stringify } from "querystring";
-import Logo from '@/assets/logo.png'
 import {LogoutOutlined, UserOutlined} from "@ant-design/icons";
-import {red} from "@ant-design/colors";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -52,7 +50,7 @@ const AvatarDropdown: React.FC = () => {
     ];
     const onClick: MenuProps['onClick'] = async (event) => {
         const { key } = event;
-        console.log(event);
+        //console.log(event);
         if ( key === 'logout') {
             try {
                 await userLogout();

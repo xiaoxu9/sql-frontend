@@ -36,7 +36,7 @@ interface GenerateVO {
   dataList: Record<string, any>[];
   javaEntityCode: string;
   javaObjectCode: string;
-  typescriptTypeCode: string;
+  typeScriptTypeCode: string;
 }
 
 /**

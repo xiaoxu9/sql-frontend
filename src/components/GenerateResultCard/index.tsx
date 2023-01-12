@@ -269,7 +269,7 @@ const GenerateResultCard: React.FC<Props> = (props) => {
                     children: (
                         <>
                             <div style={{ marginTop: 16 }} />
-                            <Collapse defaultActiveKey={['1']}>
+                            <Collapse defaultActiveKey={['1', '2']}>
                                 <Collapse.Panel
                                     key="1"
                                     header="实体代码"
@@ -279,7 +279,7 @@ const GenerateResultCard: React.FC<Props> = (props) => {
                                             size="small"
                                             icon={<CopyOutlined />}
                                             onClick={(e) => {
-                                                copy(result?.typescriptTypeCode);
+                                                copy(result?.typeScriptTypeCode);
                                                 e.stopPropagation();
                                                 message.success('已复制到剪切板');
                                             }}
@@ -289,7 +289,7 @@ const GenerateResultCard: React.FC<Props> = (props) => {
                                     }
                                 >
                                     {/* 代码美化编辑面板组件 */}
-                                    <CodeEditor value={result.typescriptTypeCode} language="typescript" />
+                                    <CodeEditor value={result.typeScriptTypeCode} language="typescript" />
                                 </Collapse.Panel>
                             </Collapse>
 

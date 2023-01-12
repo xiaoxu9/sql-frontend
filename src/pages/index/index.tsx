@@ -1,4 +1,4 @@
-import React, {useEffect, useImperativeHandle, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { PageContainer } from '@ant-design/pro-components';
 import {
     BackTop,
@@ -23,9 +23,7 @@ import JsonInputModal from "@/components/JsonInputModal";
 import SqlInputModal from "@/components/SqlInputModal";
 import ImportTableDrawer from "@/components/ImportTableDrawer";
 import GenerateResultCard from "@/components/GenerateResultCard";
-import { useParams } from 'umi';
-import {generateCreateTableSql, getTableInfoById} from "@/services/tableInfoService";
-import {generateCreateDictTableSql} from "@/services/dictService";
+import { getTableInfoById} from "@/services/tableInfoService";
 
 
 const IndexPage: React.FC = () => {
@@ -57,6 +55,7 @@ const IndexPage: React.FC = () => {
         try {
             const res = await generateBySchema(values);
             setResult(res.data);
+            //console.log(res.data)
             message.success('已生成');
         } catch (e: any) {
             message.error('生成错误，' + e.message);

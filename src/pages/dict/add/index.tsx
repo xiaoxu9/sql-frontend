@@ -10,6 +10,7 @@ import { message } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'umi';
+import './index.less'
 
 const dictAdd: React.FC = () => {
     const [dictList, setDictList] = useState<DictType.Dict[]>([]);

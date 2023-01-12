@@ -26,5 +26,9 @@ export default defineConfig({
     ]);
     return memo;
   },
+  // 修改icon
+  links: [
+    { rel: 'icon', href: './src/assets/logo.png' },
+  ],
 });
 

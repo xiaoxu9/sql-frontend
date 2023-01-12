@@ -58,7 +58,7 @@ const TableInfoList: React.FC<Props> = (props) => {
                 dataSource={dataList}
                 renderItem={(item, index) => {
                     const content: TableSchema = JSON.parse(item.content)
-                    if ( title === '公开表信息' || title === '导入表' && item.reviewStatus === 1) {
+                    if ( title === '公开表信息' && item.reviewStatus === 1 || title === '导入表') {
                         return (
                             <List.Item
                                 key={index}
@@ -136,7 +136,7 @@ const TableInfoList: React.FC<Props> = (props) => {
                                 </Space>
                             </List.Item>
                         )
-                    } else if ( title === '个人表信息' || title === '导入表' && item.reviewStatus !== 1) {
+                    } else if ( title === '个人表信息' && item.reviewStatus !== 1 || title === '导入表') {
                         return (
                             <List.Item
                                 key={index}

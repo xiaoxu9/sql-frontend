@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { PaginationConfig } from 'antd/es/pagination';
 import {useModel} from "@umijs/max";
 import {Button, Descriptions, Divider, List, message, Popconfirm, Space, Tag, Typography} from "antd";
@@ -36,7 +36,7 @@ const FieldInfoList: React.FC<Props> = (props) => {
         // id不存在，表示已删除
         if (!id) {
             return true
-        };
+        }
         try {
             await deleteFieldInfo({
                 id,
@@ -61,7 +61,7 @@ const FieldInfoList: React.FC<Props> = (props) => {
                 dataSource={dataList}
                 renderItem={(item, index) => {
                     const content: Field = JSON.parse(item.content)
-                    if ( title === '公开字段信息' || title === '导入字段' && item.reviewStatus === 1) {
+                    if ( title === '公开字段信息' && item.reviewStatus === 1 || title === '导入字段') {
                         return (
                             <List.Item
                                 key={index}
@@ -144,7 +144,7 @@ const FieldInfoList: React.FC<Props> = (props) => {
                                 </Space>
                             </List.Item>
                         )
-                    } else if ( title === '个人字段信息' || title === '导入字段' && item.reviewStatus !== 1) {
+                    } else if ( title === '个人字段信息' && item.reviewStatus !== 1 || title === '导入字段') {
                         return (
                             <List.Item
                                 key={index}

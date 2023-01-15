@@ -1,10 +1,11 @@
-// 运行时配置
+// 全局运行时配置
 import Logo from '@/assets/logo.png';
+import GlobalFooter from '@/components/GlobalFooter';
 import { getLoginUser } from '@/services/userService';
-import {RunTimeLayoutConfig} from "@@/plugin-layout/types";
-import GlobalFooter from '@/components/GlobalFooter'
+import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
+import type { RequestConfig } from 'umi';
+import './global.less';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { RequestConfig } from '@umijs/max';
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
@@ -49,7 +50,7 @@ const isDev = process.env.NODE_ENV === 'development';
  * https://umijs.org/docs/max/request
  */
 export const request: RequestConfig = {
-  baseURL: isDev ? 'http://localhost:8102/api' : '你的线上接口地址',
+  baseURL: isDev ? 'http://localhost:8080/api' : 'http://121.43.170.131:8080/api',
   timeout: 10000,
   withCredentials: true,
   // other axios options you want

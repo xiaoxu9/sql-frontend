@@ -8,9 +8,7 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
-  layout: {
-    title: '@umijs/max',
-  },
+  layout: {},
   // @ts-ignore
   mock: false,  // 不模拟数据
   routes,
@@ -30,5 +28,7 @@ export default defineConfig({
   links: [
     { rel: 'icon', href: './src/assets/logo.png' },
   ],
+  // 静态化
+  exportStatic: {},
 });
 

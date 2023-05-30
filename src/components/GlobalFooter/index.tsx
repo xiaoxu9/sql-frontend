@@ -27,6 +27,16 @@ const GlobalFooter: React.FC = () => {
                     href: 'https://github.com/xiaoxu9',
                     blankTarget: true,
                 },
+                {
+                    key: 'masterbeian',
+                    title: (
+                        <>
+                            粤ICP备2023007087号-1
+                        </>
+                    ),
+                    href: 'https://beian.miit.gov.cn/',
+                    blankTarget: true,
+                },
             ]}
         />
     )

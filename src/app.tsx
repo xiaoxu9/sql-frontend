@@ -38,7 +38,7 @@ export const layout: RunTimeLayoutConfig = () => {
     contentStyle: {
       paddingBottom: 120
     },
-    rightRender: () => <RightContent />,
+    rightRender: () => <RightContent/>,
     footerRender: () => <GlobalFooter />,
   };
 };
@@ -50,7 +50,7 @@ const isDev = process.env.NODE_ENV === 'development';
  * https://umijs.org/docs/max/request
  */
 export const request: RequestConfig = {
-  baseURL: isDev ? 'http://localhost:8080/api' : '你的线上地址',
+  baseURL: isDev ? 'http://localhost:8081/api' : 'https://sql.xiaoxu9.cn:8080/api',
   timeout: 10000,
   withCredentials: true,
   // other axios options you want
@@ -68,7 +68,7 @@ export const request: RequestConfig = {
         throw new Error('服务异常');
       }
       // 下载接口没有 code
-      if (path.includes('download/data/excel')) {
+      if (path.includes('download/data/excel') || path.includes('verify/getCode') || path.includes('verify/checkCode') || path.includes('/get/avatar')) {
         return response;
       }
       const code = data.code ?? 50000;

@@ -134,5 +134,9 @@ export const REVIEW_STATUS_ENUM = {
     2: {
         text: '拒绝',
     },
+    3: {
+        text: '未提交',
+    }
 };
+
 

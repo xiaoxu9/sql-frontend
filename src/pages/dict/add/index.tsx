@@ -38,7 +38,7 @@ const dictAdd: React.FC = () => {
     const doAdd = async (fields: DictType.DictAddRequest) => {
         const hide = message.loading('正在提交');
         try {
-            await addDict(fields);
+            await addDict({...fields, reviewStatus: 3});
             message.success('创建成功');
             // 跳转到显示词库添加成功结果页面
             navigate('/dict/add_result');

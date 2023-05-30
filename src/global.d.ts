@@ -5,7 +5,7 @@ interface PageInfo<T> {
     current: number;
     size: number;
     total: number;
-    records: T[];
+    records: T;
 }
 
 /**

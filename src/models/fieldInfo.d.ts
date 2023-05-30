@@ -23,6 +23,7 @@ declare namespace FieldInfoType {
   interface FieldInfoAddRequest {
     name: string;
     content: string;
+    reviewStatus: number;
   }
 
   /**

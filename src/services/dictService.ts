@@ -41,7 +41,7 @@ export async function listMyAddDictByPage(params: DictType.DictQueryRequest) {
  * @param params
  */
 export async function listMyDictByPage(params: DictType.DictQueryRequest) {
-  return request<BaseResponse<PageInfo<DictType.Dict>>>('/dict/my/list/page', {
+  return request<BaseResponse<PageInfo<DictType.Dict[]>>>('/dict/my/list/page', {
     method: 'GET',
     params,
   });
@@ -53,7 +53,7 @@ export async function listMyDictByPage(params: DictType.DictQueryRequest) {
  * @param params
  */
 export async function listDictByPage(params: DictType.DictQueryRequest) {
-  return request<BaseResponse<PageInfo<DictType.Dict>>>('/dict/list/page', {
+  return request<BaseResponse<PageInfo<DictType.Dict[]>>>('/dict/list/page', {
     method: 'GET',
     params,
   });

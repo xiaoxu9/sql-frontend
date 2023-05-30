@@ -19,6 +19,17 @@ declare namespace UserType {
     }
 
     /**
+     * 更改密码实体
+     */
+    interface UserUpdatePasswordRequest {
+        id?: number;
+        userAccount?: string;
+        oldPassword: number;
+        userPassword: number;
+        checkPassword: number;
+    }
+
+    /**
      * 用户类型
      */
     interface UserVO {
@@ -76,7 +87,7 @@ declare namespace UserType {
         id: number;
         userName?: string;
         userAccount?: string;
-        userPassword?: string;
+        //userPassword?: string;
         userAvatar?: string;
         gender?: UserGenderEnum;
         userRole?: string;
@@ -95,5 +106,4 @@ declare namespace UserType {
         createTime?: Date;
         updateTime?: Date;
     }
-
 }

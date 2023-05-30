@@ -27,7 +27,7 @@ interface Props {
  * @author https://github.com/xiaoxu9
  */
 const TableInfoCard: React.FC<Props> = (props) => {
-    const { title = '表信息列表', needLogin = false, showTag = true, onLoad, onImport } = props;
+    const { title='表信息', needLogin = false, showTag = true, onLoad, onImport } = props;
 
     // 公开数据
     const [dataList, setDataList] = useState<TableInfoType.TableInfo[]>([]);
@@ -83,11 +83,10 @@ const TableInfoCard: React.FC<Props> = (props) => {
             <Card
                 title={title}
                 extra={
-                    title !== '导入表' ?? (
+                    title === '个人表信息' ?
                         <Link to="/">
                             <Button type="primary" >创建表</Button>
-                        </Link>
-                    )
+                        </Link> : <></>
                 }
             >
                 {!needLogin || loginUser ? (

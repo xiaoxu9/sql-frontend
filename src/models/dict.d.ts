@@ -22,6 +22,7 @@ declare namespace DictType {
     interface DictAddRequest {
         name: string;
         content: string;
+        reviewStatus: number;
     }
 
     /**

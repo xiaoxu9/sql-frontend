@@ -30,5 +30,7 @@ export default defineConfig({
   ],
   // 静态化
   exportStatic: {},
+  metas: [
+    { "http-equiv": "Content-Security-Policy", content: "upgrade-insecure-requests" }
+  ],
 });
-

@@ -52,7 +52,7 @@ export async function listMyFieldInfoByPage(params: FieldInfoType.FieldInfoQuery
  * @param params
  */
 export async function listFieldInfoByPage(params: FieldInfoType.FieldInfoQueryRequest) {
-  return request<BaseResponse<PageInfo<FieldInfoType.FieldInfo>>>('/field_info/list/page', {
+  return request<BaseResponse<PageInfo<FieldInfoType.FieldInfo[]>>>('/field_info/list/page', {
     method: 'GET',
     params,
   });

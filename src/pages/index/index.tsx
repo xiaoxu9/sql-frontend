@@ -160,7 +160,8 @@ const IndexPage: React.FC = () => {
                 </Upload>
             </Space>
             <div style={{ marginTop: 16 }} />
-            <FormInput ref={formInputRef} onSubmit={doGenerateBySchema} />
+            {/* 表单组件 */}
+            <FormInput ref={formInputRef} onSubmit={doGenerateBySchema} onClose={()=>{setResult(undefined)}}/>
         </Card>
     );
 
@@ -198,6 +199,7 @@ const IndexPage: React.FC = () => {
                         xl={layout === 'half' ? 12 : 24}  // 屏幕 ≥ 1200px 如果选择了 half（同屏）那么只占一半，否则沾满
                         order={layout === 'output' ? 1 : 2}  // 栅格顺序（设置为1，（数字越小，顺序越靠前显示））
                     >
+                        {/* 代码编辑器组件，展示代码 */}
                         <GenerateResultCard result={result} loading={genLoading} />
                     </Col>
                 </Row>

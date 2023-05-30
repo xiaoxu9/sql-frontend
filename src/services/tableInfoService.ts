@@ -41,7 +41,7 @@ export async function listMyAddTableInfoByPage(params: TableInfoType.TableInfoQu
  * @param params
  */
 export async function listMyTableInfoByPage(params: TableInfoType.TableInfoQueryRequest) {
-  return request<BaseResponse<PageInfo<TableInfoType.TableInfo>>>('/table_info/my/list/page', {
+  return request<BaseResponse<PageInfo<TableInfoType.TableInfo[]>>>('/table_info/my/list/page', {
     method: 'GET',
     params,
   });
@@ -52,7 +52,7 @@ export async function listMyTableInfoByPage(params: TableInfoType.TableInfoQuery
  * @param params
  */
 export async function listTableInfoByPage(params: TableInfoType.TableInfoQueryRequest) {
-  return request<BaseResponse<PageInfo<TableInfoType.TableInfo>>>('/table_info/list/page', {
+  return request<BaseResponse<PageInfo<TableInfoType.TableInfo[]>>>('/table_info/list/page', {
     method: 'GET',
     params,
   });

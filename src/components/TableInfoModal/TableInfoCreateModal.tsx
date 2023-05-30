@@ -17,7 +17,7 @@ interface Props {
 const handleAdd = async (fields: TableInfoType.TableInfo) => {
     const hide = message.loading('正在添加');
     try {
-        await addTableInfo({ ...fields } as TableInfoType.TableInfoAddRequest);
+        await addTableInfo({ ...fields, reviewStatus: 3 } as TableInfoType.TableInfoAddRequest);
         hide();
         message.success('添加成功');
         return true;

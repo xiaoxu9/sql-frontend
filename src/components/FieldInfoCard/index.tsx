@@ -79,11 +79,11 @@ const FieldInfoCard: React.FC<Props> = (props) => {
             <Card
                 title={title}
                 extra={
-                    title !== '导入字段' ?? (
+                    title === '个人字段信息' ?
                         <Link to="/">
                             <Button type="primary">去创建</Button>
-                        </Link>
-                    )
+                        </Link> : <></>
+
                 }
                 >
                 {!needLogin || loginUser ? (

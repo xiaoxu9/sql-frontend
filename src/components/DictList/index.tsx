@@ -1,6 +1,6 @@
 import GenerateResultCard from '@/components/GenerateResultCard';
 import ReportModal from '@/components/ReportModal';
-import { deleteDict, generateCreateDictTableSql } from '@/services/dictService';
+import {deleteDict, generateCreateDictTableSql, updateDict} from '@/services/dictService';
 import { useModel } from '@umijs/max';
 import {
     Button,
@@ -14,7 +14,7 @@ import {
     Typography,
 } from 'antd';
 import { PaginationConfig } from 'antd/es/pagination';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 interface Props {
     title: string;
@@ -28,13 +28,16 @@ interface Props {
 const DictList: React.FC<Props> = (props) => {
     const { dataList, pagination, loading, showTag = true, title } = props;
     const [reportModalVisible, setReportModalVisible] = useState(false);
-    //const [dictCreateModalVisible, setDictCreateModalVisible] = useState(false);
+    const [currentDataList, setCurrentDataList] = useState<DictType.Dict[]>(dataList);
     const [reportedId, setReportedId] = useState(0);
     const [result, setResult] = useState<GenerateVO>();
     const [genLoading, setGenLoading] = useState(false);
-    //const [createDict, setCreateDict] = useState<DictType.Dict>();
     const { initialState } = useModel('@@initialState');
     const loginUser = initialState?.loginUser;
+
+    useEffect(()=>{
+        setCurrentDataList(dataList);
+    }, [dataList]);
 
     /**
      *  删除节点
@@ -48,10 +51,36 @@ const DictList: React.FC<Props> = (props) => {
                 id,
             });
             message.success('操作成功');
+            // 更新前端数据
+            setCurrentDataList(currentDataList.filter((item)=>item.id !== id));
         } catch (e: any) {
             message.error('操作失败，' + e.message);
         } finally {
             hide();
+        }
+    };
+    /**
+     * 更新状态
+     * @param fields
+     */
+    const handleUpdate = async (fields: DictType.Dict) => {
+        const hide = message.loading('正在更新');
+        try {
+            await updateDict(fields);
+            hide();
+            message.success('更新成功');
+            // 更新前端数据
+            setCurrentDataList(currentDataList.filter((item)=>{
+                if(item.id === fields.id) {
+                    item.reviewStatus = fields.reviewStatus;
+                }
+                return item;
+            }));
+            return true;
+        } catch (error) {
+            hide();
+            message.error('更新失败请重试！');
+            return false;
         }
     };
 
@@ -62,7 +91,7 @@ const DictList: React.FC<Props> = (props) => {
                 size="large"  // 大小
                 loading={loading}
                 pagination={pagination}  // 分页配置
-                dataSource={dataList}
+                dataSource={currentDataList}
                 renderItem={(item, index) => {
                     if (title === '公开词库' && item.reviewStatus === 1) {
                         return (
@@ -97,7 +126,8 @@ const DictList: React.FC<Props> = (props) => {
                                 <Space split={<Divider type="vertical" />} style={{fontSize: 14}}>
                                     <Typography.Text type="secondary">{item.createTime.toString().split('T')[0]}</Typography.Text>
                                     <Button
-                                        type="text"
+                                        type="default"
+                                        shape='round'
                                         loading={loading}
                                         onClick={() => {
                                             setGenLoading(true);
@@ -114,7 +144,8 @@ const DictList: React.FC<Props> = (props) => {
                                         生成表
                                     </Button>
                                     <Button
-                                        type="text"
+                                        type="default"
+                                        shape='round'
                                         onClick={() => {
                                             setReportedId(item.id);
                                             // 显示举报页面
@@ -125,20 +156,21 @@ const DictList: React.FC<Props> = (props) => {
                                     </Button>
                                     {loginUser && loginUser.id === item.userId && (
                                         <Popconfirm
-                                            title="你确定要删除么？"
+                                            title="你确定要取消公开吗？"
                                             onConfirm={() => {
-                                                doDelete(item.id);
+                                                //doDelete(item.id);
+                                                handleUpdate({...item, reviewStatus: 3});
                                             }}
                                         >
-                                            <Button type="text" danger>
-                                                删除
+                                            <Button type="primary" shape="round" ghost danger >
+                                                取消公开
                                             </Button>
                                         </Popconfirm>
                                     )}
                                 </Space>
                             </List.Item>
                         )
-                    } else if (title === '个人词库' && item.reviewStatus !== 1) {
+                    } else if (title === '个人词库' && item.userId === loginUser?.id) {
                         return (
                             <List.Item key={index} >
                                 <List.Item.Meta
@@ -146,6 +178,9 @@ const DictList: React.FC<Props> = (props) => {
                                         <Space align="center">
                                             <div>{item.name}</div>
                                             <div>
+                                                {showTag && item.reviewStatus === 1 && (
+                                                    <Tag color="success">公开</Tag>
+                                                )}
                                                 {item.userId === 1 && <Tag color="gold">官方</Tag>}
                                             </div>
                                         </Space>
@@ -168,7 +203,8 @@ const DictList: React.FC<Props> = (props) => {
                                 <Space split={<Divider type="vertical" />} style={{fontSize: 14}}>
                                     <Typography.Text type="secondary">{item.createTime.toString().split('T')[0]}</Typography.Text>
                                     <Button
-                                        type="text"
+                                        type="default"
+                                        shape='round'
                                         loading={loading}
                                         onClick={() => {
                                             setGenLoading(true);
@@ -185,7 +221,8 @@ const DictList: React.FC<Props> = (props) => {
                                         生成表
                                     </Button>
                                     <Button
-                                        type="text"
+                                        type="default"
+                                        shape='round'
                                         onClick={() => {
                                             setReportedId(item.id);
                                             // 显示举报页面
@@ -195,22 +232,32 @@ const DictList: React.FC<Props> = (props) => {
                                         举报
                                     </Button>
                                     {loginUser && loginUser.id === item.userId && (
-                                        <Popconfirm
-                                            title="你确定要删除么？"
-                                            onConfirm={() => {
-                                                doDelete(item.id);
-                                            }}
-                                        >
-                                            <Button type="text" danger>
-                                                删除
-                                            </Button>
-                                        </Popconfirm>
+                                        <>
+                                            {
+                                                // 未提交以及拒绝状态时可请求公开
+                                                (item.reviewStatus === 2 || item.reviewStatus === 3) && (
+                                                    <Button type="primary" ghost shape="round" onClick={()=>{
+                                                        handleUpdate({...item, reviewStatus: 0});
+                                                    }}>
+                                                        请求公开
+                                                    </Button>
+                                                )
+                                            }
+                                            <Popconfirm
+                                                title="你确定要删除么？"
+                                                onConfirm={() => {
+                                                    doDelete(item.id);
+                                                }}
+                                            >
+                                                <Button type="primary" ghost shape="round"  danger >
+                                                    删除
+                                                </Button>
+                                            </Popconfirm>
+                                        </>
                                     )}
                                 </Space>
                             </List.Item>
                         )
-                    } else {
-                        return <></>
                     }
                 }}
             />

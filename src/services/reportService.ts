@@ -8,7 +8,7 @@ import { request } from '@umijs/max';
  * @param params
  */
 export async function listReportByPage(params: ReportType.ReportQueryRequest) {
-  return request<BaseResponse<PageInfo<ReportType.Report>>>(
+  return request<BaseResponse<PageInfo<ReportType.Report[]>>>(
     '/report/list/page',
     {
       method: 'GET',

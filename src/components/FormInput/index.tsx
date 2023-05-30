@@ -38,6 +38,7 @@ const { Option } = Select;
 interface Props {
     onSubmit: (values: TableSchema) => void;
     ref: any;
+    onClose:() => void;
 }
 
 /**
@@ -45,7 +46,7 @@ interface Props {
  *
  */
 const FormInput: React.FC<Props> = forwardRef((props, ref) => {
-    const { onSubmit } = props;
+    const { onSubmit, onClose } = props;
     const [form] = Form.useForm();
     const [dictList, setDictList] = useState<DictType.Dict[]>([]);
     const [fieldInfoCreateModalVisible, setFieldInfoCreateModalVisible] =
@@ -238,7 +239,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                         <Space key={field.key} align="baseline" wrap size={[24, 0]}>
                                             <Form.Item
                                                 label="字段类型"
-                                                name={[field.name, 'fieldName']}
+                                                name={[field.name, 'fieldType']}
                                                 rules={[{required: true}]}
                                             >
                                                 <AutoComplete
@@ -484,7 +485,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                             复制配置
                         </Button>
                          {/*htmlType="reset" 表示点击此按钮时，自动删除重置表单 */}
-                        <Button htmlType="reset">重置</Button>
+                        <Button htmlType="reset" onClick={()=>{onClose()}}>重置</Button>
                     </Space>
                 </Form.Item>
             </Form>

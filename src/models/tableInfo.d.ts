@@ -22,6 +22,7 @@ declare namespace TableInfoType {
   interface TableInfoAddRequest {
     name: string;
     content: string;
+    reviewStatus: number;
   }
 
   /**
